@@ -1,0 +1,290 @@
+<html>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+<head>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="./js/color.js"></script>
+    <script src="./js/md5.js"></script>
+    <script src="./js/moment.js"></script>
+</head>
+
+<body>
+    <div id='loginpage'>
+        <select id='room_dropdown'>
+            <option disabled selected value>Select Room</option>
+            <option value="BlackPig">Black Pig</option>
+            <option value="EngineRoom">Engine Room</option>
+            <option value="PataGorda">Pata Gorda</option>
+            <option value="ArcticSunrise">Arctic Sunrise</option>
+            <option value="Beluga">Beluga</option>
+            <option value="PhyllisCormack">Phyllis Cormack</option>
+            <option value="RadioRoom">Radio Room</option>
+            <option value="RainbowWarrior">Rainbow Warrior</option>
+            <option value="SteeringRoom">Steering Room</option>
+        </select>
+    </div>
+    <div id='background'>
+        <div id='changeroom'><i class="fa fa-window-close" aria-hidden="true"></i></div>
+        <div id='imagelayer'>
+            <div id="Glide" class="glide">
+            </div>
+        </div>
+        <div id='gradientlayer'>
+            <div id='nextmain' class='bgbox'>
+            </div>
+            <div id='nexttime' class='bgbox'>
+            </div>
+            <div id='nextdescription' class='bgbox'>
+            </div>
+        </div>
+    </div>
+    <div id='bottombox'>
+        <div id='confirmbutton'>Confirm</div>
+    </div>
+    <div id='gradientfooter'></div>
+</body>
+<script type="text/javascript">
+if (localStorage.getItem("curroom") != null) {
+    curroom = localStorage.getItem("curroom");
+    populate();
+}
+
+$("#room_dropdown").change(function() {
+    curroom = $(this).val();
+    localStorage.setItem("curroom", curroom);
+    populate();
+});
+$("#confirmbutton").on('touchstart', function(e) {
+    confirmEvent();
+});
+$("#confirmbutton").click(function(e) {
+    confirmEvent();
+});
+$("#changeroom").on('touchstart', function(e) {
+    touchtime = new Date().getTime();
+    //remove cookie
+    localStorage.removeItem("curroom");
+    location.reload(true);
+});
+
+//store localStorage.setItem("myValue", "123-abcd");
+//retrieve var myValue = localStorage.getItem("myValue);
+
+var ret;
+var curroom;
+var currentevent;
+var touchtime = 0;
+var enablebutton = false;
+
+
+
+//populate();
+
+function populate() {
+    $("#loginpage").fadeOut();
+    var now = new Date();
+    $.ajax({
+        type: "GET",
+        url: 'http://calendar.greenpeace.international:8080/getcal/' + curroom,
+        dataType: 'json',
+        success: function(result) {
+            //console.log(result);
+            var now = new Date();
+            //console.log(moment(now).unix());
+            $("#nextmain").html("");
+            $("#nexttime").html("");
+            $("#nextdescription").html("");
+            $("#bottombox").find("span").remove();
+
+            ret = result.items;
+            var res = result.items;
+
+            for (var i = 0; i < res.length - 1; i++) {
+                if (res[i].start.dateTime == res[i + 1].start.dateTime) {
+                    console.log('same start time found! ' + res[i].summary + " and " + res[i + 1].summary);
+                    if (moment(res[i].created).unix() < moment(res[i + 1].created).unix()) {
+                        res.splice(i + 1, 1);
+                    } else {
+                        res.splice(i, 1);
+                    }
+                    //res.splice(i, 1);
+                }
+            }
+
+            //console.log(res);
+            if (res.length == 0){
+                $("#confirmbutton").text('Waiting').animate({
+                                    backgroundColor: 'rgb(20, 20, 20)'
+                                }, 300);
+                $("#nextmain").text('Room Free');
+                $("#nexttime").text('Waiting for new bookings');
+                $("#nextdescription").text('The rest of the day is free');
+            }
+            var entry = $.each(res, function(i, val) {
+                /*if (val.visibility) {
+                    if (val.visibility == 'private') {
+                        console.log("hiding");
+                        return true;
+                    }
+                };*/
+
+
+
+                ///START AGAIN HERE
+                //write logic here for checking if within 5 minutes
+
+                /*
+                
+                GABRIEL... COMMENT THIS WHOLE IF-STATEMENT IF IT GOES TITS UP TO DISABLE CONFIRM BUTTON AND GO TO home/stonian/rbs/public/css/style.css and uncomment 'display:none' from #confirmbutton.
+
+                */
+
+                if (i == 0 && val.start) {
+                    currentevent = val.id;
+                    //if in the first 5 minutes
+                    if (moment(now).unix() > moment(val.start.dateTime).unix() && moment(now).unix() < moment(val.start.dateTime).add(5, 'minutes').unix()) {
+                        console.log(val.hasOwnProperty('extendedProperties').hasOwnProperty('private').hasOwnProperty('padconfirmed'));
+                        //if its already confirmed
+                        if (((((val || {}).extendedProperties || {}).private || {}).padconfirmed)) {
+                            //console.log("isconfirmed");
+                            if (val.extendedProperties.private.padconfirmed == 'true') {
+                                $("#confirmbutton").text('Confirmed').animate({
+                                    backgroundColor: 'rgb(180, 0, 0)'
+                                }, 300);
+                                enablebutton = false;
+                            }
+                            // else its not confirmed yet
+                        } else {
+
+                            enablebutton = true;
+                            $("#confirmbutton").fadeIn();
+                            $("#confirmbutton").text('Click to confirm').animate({
+                                backgroundColor: 'green'
+                            }, 300);
+                        }
+                        // it is not in the first 5 minutes
+                    } else if (moment(now).unix() > moment(val.start.dateTime).unix()) {
+                        //console.log("trigger0");
+                        if (((((val || {}).extendedProperties || {}).private || {}).padconfirmed)) {
+                            //console.log("isconfirmed");
+                            if (val.extendedProperties.private.padconfirmed == 'true') {
+                                $("#confirmbutton").text('Confirmed').animate({
+                                    backgroundColor: 'rgb(180, 0, 0)'
+                                }, 300);
+                                enablebutton = false;
+                            }
+                            // else its not confirmed yet
+                        }
+                        if (!((((val || {}).extendedProperties || {}).private || {}).padconfirmed)) {
+                            console.log("trigger1");
+                            $("#confirmbutton").text('Cancelling').animate({
+                                backgroundColor: 'purple'
+                            }, 300);
+                            enablebutton = false;
+                            cutEvent();
+                        }
+                    } else if (moment(now).unix() < moment(val.start.dateTime).unix()) {
+                        $("#confirmbutton").text('Waiting for start').animate({
+                            backgroundColor: 'blue'
+                        }, 300);
+                        enablebutton = false;
+                    }
+                    $("#nextmain").append(val.summary + "<br>");
+                    $("#nexttime").append(moment(val.start.dateTime).format('h:mm a') + " - " + moment(val.end.dateTime).format('h:mm a') + "<br>Start time: " + moment().to(moment(val.start.dateTime)) + "<br><br>");
+                    if (val.creator.displayName) {
+                        $("#nextdescription").append("Created by " + val.creator.displayName)
+                    } else if (val.creator.email) {
+                        $("#nextdescription").append("Created by " + val.creator.email)
+                    }
+                } else if (val.start) {
+                    $("#bottombox").append("<span><i>" + moment(val.start.dateTime).format('h:mm a') + " - " + moment(val.end.dateTime).format('h:mm a') + "</i> - " + val.summary + "<br><span>")
+                }
+            })
+        }
+    });
+    setTimeout(function() {
+        populate()
+    }, 1000)
+}
+
+function confirmEvent() {
+    console.log("cur event : " + currentevent);
+    if (enablebutton) {
+        $.ajax({
+            type: "GET",
+            url: 'http://calendar.greenpeace.international:8080/confirm/' + curroom + '/' + currentevent,
+            success: function(result) {
+                //$("#confirmbutton").fadeOut();
+                $("#confirmbutton").text('Confirmed').animate({
+                    backgroundColor: 'rgb(180, 0, 0)'
+                }, 300);
+            }
+        })
+    }
+}
+
+function cutEvent() {
+    var now = new Date();
+    $.ajax({
+        type: "GET",
+        url: 'http://calendar.greenpeace.international:8080/cut/' + curroom + '/' + currentevent + '/' + moment(now).utc().format(),
+        success: function(result) {
+            //$("#confirmbutton").fadeOut();
+            $("#confirmbutton").text('Confirmed').animate({
+                backgroundColor: 'rgb(180, 0, 0)'
+            }, 300);
+        }
+    })
+}
+//moment("2017-02-08T16:00:00+01:00") ("2017-02-08T15:00:00+01:00")
+
+//background functions
+var images = new Array(
+    '0.jpg',
+    '1.jpg',
+    '2.jpg',
+    '3.jpg',
+    '4.jpg',
+    '5.jpg',
+    '6.jpg',
+    '7.jpg',
+    '8.jpg',
+    '9.jpg',
+    '10.jpg',
+    '11.jpg'
+);
+var current = 0;
+//pull new images
+
+//rotate images
+changeImage();
+
+function changeImage() {
+    current++;
+    if (current == images.length) {
+        current = 0;
+    }
+    $('#imagelayer')
+        .animate({
+            opacity: 0
+        }, 1500, function() {
+            $(this)
+                .css({
+                    'background-image': 'url(/img/' + images[current] + ')'
+                })
+                .animate({
+                    opacity: 1
+                }, 1500);
+        });
+    setTimeout(function() {
+        changeImage();
+    }, 5000)
+}
+setTimeout(function() {
+    location.reload();
+}, 21600000)
+</script>
+
+</html>

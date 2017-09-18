@@ -1,0 +1,23 @@
+{
+  "name": "rbs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "md5.js",
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-logger": "^0.0.3",
+    "express-logs": "^1.0.2",
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^16.1.0",
+    "morgan": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+

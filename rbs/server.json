@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "calendarbooking-int",
+  "private_key_id": "3ac96e65152a3ee12b801dc8c95be483e3b5c286",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDGyl6/EntHYFa+\nJg1j+G8T4RWwtFH1cyP7FULCbLKOM1Tym/oRpx8DPz56nxYQExxEGsaAWHKcig7Z\n0Tr0ZoRFgCACpyFt6li9iZzdDQFfW4DR7xNGWRDdU+83nfFrg7YU5Bm1w08idaBg\ny+JLpmfpEt5+KP06lXEGQFDDeUrGal2PjFXSJhyM790b93TyS0NE9RkwjOmj/aNE\nGNjBHEwd4TDwNfFrqByTI5gh/YIBotNlVK2qwlsMkOSG637pBvx8NunPhcBOOglP\n8mzzy2f8pM/83mztJrMWUQPBnBqU6Fd7dun3HToktpjFsJSfyfG5v/2xPmc8oZS/\nDH2D1/SPAgMBAAECggEBAI/a7smS1EeIvf0IiHQp2igmoI2pUA4xbn5Kmm8cPfKN\nzxFqMoMHz3eIEuylp0+mpLPcNH24g+goOCsEMIegkGPDHmcNDzH9fo5awXtt5+pb\ny1MgkXA9D+k6zkgPMh+9xsxDbR+N4Pxs5sxlfrOEDnoqP3xIqUf10T7W2Bs88RG3\nq+5TOSU47qEPmwQcRx4dXARzvXzXR3J7p3OSvMotaYpdqWmIFuUZstFw6BZ7B2oG\n8ziGfV2ozhJoUJjL3sQ3niEGwSeLDt3xm6APixmZPg+09TmazXwOOiXM8fGd/d92\nfNYcmculHHl4Z8g1oNOI1eLZDvuhFmMySoDIeQu3/FECgYEA8tMDCD6PuVSgSyWm\n1kV2+xOZ6FuXTX63Va8kHYL7a4YY2pqEcRR6I4Ufecm9RNlcXIl1CPpdvypGS1st\ng+DIDX5s3D9rNhTgMfSyqsmM+w1FqUUDmg2VgTEd2zNtIBt5MN00TYsOEelRkRxe\nQRnA0ZHodNZx+1VLqhBFW2CLVrMCgYEA0ZOzVXR8A6qrSmNFBL84/rfDyo95Rgdw\nojQH08FDdSpZpkKZLRlIxLXyGlqF1vsBswbJ0Jr77IAMP1KPqIfOeOHYVbWbZV9n\nSMdO8RwRMW84br6XWCR03Z+X+H1Xq6ABaQfQPb3t7VlIiz9oUouxx7quS7FleRVw\nz4PIqtJxuLUCgYEA77oNC02gXOrEWYwxeucXgOcoEjKiXFqWqxv+vrf6eXvo+6CC\n0pTRxFF/8p+NoPQqcB0wkw2CEeGthmXcuI7pUhEXbhWaRck0UX1wCpZy/cNrm6JL\n3QI+ME6KWEccHA+jhO9N3KRE3sAGzAlCsGi5aOzwnrC71NKvoZTwtDbLOWsCgYAU\nvO3Q9e7Tmg7LFJmex6FHKz33jEzuzguqMUXZAVXAgUlPt2Va3haiSHLFgtGdnUbk\nxTYxKzTkiSMtHOlUPuQCeC6lBIx08oTQ4dAA8csNvjiyVK+7LBhYWdN65kRHmlSp\nZPmJMoMZqm0QQlz7VhFodyOKH+qvmZyJHDw+EwbnxQKBgQDf6Z8iJVTnVc9eSiFu\nyQfyD5FfIpkoNBmgpzVA9jJjL/F29Kniqs/m8hSW1C37h7HOUdf0a+5RnKixfDJP\nGrBPtaEtigXMWgPwFpcNeEnDT9B1SHRQtKDVWhjLcKvSaX1Lee6t28pnMsdYjiRE\nMrqA9qOGK1n8eF0QIxTzKRSBsg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "708497098884-f32pd1cegl8pge88h6mjp9kudrlbk3pm@developer.gserviceaccount.com",
+  "client_id": "708497098884-f32pd1cegl8pge88h6mjp9kudrlbk3pm.apps.googleusercontent.com",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/708497098884-f32pd1cegl8pge88h6mjp9kudrlbk3pm%40developer.gserviceaccount.com"
+}
+
